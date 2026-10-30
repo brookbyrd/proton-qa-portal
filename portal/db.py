@@ -175,6 +175,38 @@ class Database:
         self._install_requested_dashboard_schedules()
         self._install_derived_calculations()
         self._unify_pbs_selections()
+        self._install_pbs_daily_protocol()
+
+    def _install_pbs_daily_protocol(self):
+        seed=json.loads((Path(__file__).parent/'seed.json').read_text())
+        revision=seed.get('pbs_daily_protocol_revision')
+        if not revision:return
+        template=next(t for t in seed['templates'] if t['name']==revision['template'])
+        for queue in self.all('SELECT * FROM queues WHERE name=?',(revision['template'],)):
+            if self.one('SELECT id FROM audit WHERE action=? AND entity_id=?',(revision['id'],queue['id'])):continue
+            with self.transaction():
+                prior=self.all('SELECT t.*,qi.test_id,qi.position FROM queue_items qi JOIN tests t ON t.id=qi.test_id WHERE qi.queue_id=? ORDER BY qi.position',(queue['id'],))
+                used=set();ordered=[]
+                for check in template['checks']:
+                    existing=next((x for x in prior if x['name'] in [check['name'],check.get('_previous_name')]),None)
+                    if existing:
+                        tid=existing['id'];used.add(tid)
+                        self.run('UPDATE tests SET name=?,description=? WHERE id=?',(check['name'],check['description'],tid))
+                    else:
+                        tid=self.run("INSERT INTO tests (name,category,type,unit,description,expected,warn,fail,tol_mode,active,owner_queue_id) VALUES (?,?,?,?,?,?,?,?,?,1,?)",(check['name'],check['category'],check['type'],check.get('unit',''),check['description'],check.get('expected'),check.get('warn'),check.get('fail'),check.get('tol_mode','absolute'),queue['id']))
+                        self.run('INSERT INTO queue_items (queue_id,test_id,position) VALUES (?,?,?)',(queue['id'],tid,0))
+                    ordered.append(tid)
+                for test in prior:
+                    if test['name'] in revision['removed']:
+                        self.run('DELETE FROM queue_items WHERE queue_id=? AND test_id=?',(queue['id'],test['id']))
+                    elif test['id'] not in used:ordered.append(test['id'])
+                for position,tid in enumerate(ordered):self.run('UPDATE queue_items SET position=? WHERE queue_id=? AND test_id=?',(position,queue['id'],tid))
+                for assignment in self.all('SELECT a.*,m.name AS machine_name FROM assignments a JOIN machines m ON m.id=a.machine_id WHERE a.queue_id=?',(queue['id'],)):
+                    if assignment['machine_name'] not in revision['obs_machines_excluded']:continue
+                    obs=[x['id'] for x in prior if x['name'].startswith('[OBs]') or "OB's DR image" in x['name']]
+                    selection=json.loads(assignment.get('test_selection') or '{}');selection['excluded']=list(set(selection.get('excluded',[])+obs))
+                    self.run('UPDATE assignments SET test_selection=? WHERE id=?',(json.dumps(selection),assignment['id']))
+                self.audit(None,revision['id'],'queue',queue['id'],preserve_historical_results=True)
 
     def _unify_pbs_selections(self):
         from .sphinx import is_pbs_template, template_match

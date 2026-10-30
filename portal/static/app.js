@@ -1342,7 +1342,7 @@ function passFailInput(name, withWarning, yesNo) {
 }
 
 // Directions are shown with the test, numbered as in the template (1.01, 2.04, ...).
-const TEMPLATE_NUMBER = /^Template (\d+)\.(\d+)\.\s*/;
+const TEMPLATE_NUMBER = /^Template (\d+)\.(\d+[a-z]?)\.\s*/;
 // Lists copied from RadMachine keep its own section names: "Template 1.04. [Section: PBS DailyQA GTR5 - Sphinx] ...".
 const SECTION_NAME = /\[Section: ([^\]]+)\]\s*/;
 const MARKER = /\[(auto|calc): ((?:[^\[\]]|\[[^\]]*\])+)\]\s*/;
@@ -1514,7 +1514,7 @@ function blockNumbers(items) {
 }
 
 function checkNumber(description) {
-  const m = /^Template (\d+\.\d+)\./.exec(description || "");
+  const m = /^Template (\d+\.\d+[a-z]?)\./.exec(description || "");
   return m ? m[1] : "";
 }
 

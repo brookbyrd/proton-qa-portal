@@ -849,7 +849,7 @@ def run_template(db, user, assignment_id):
         test = _get(db, "tests", item["test_id"])
         override = overrides.get(test["id"])
         all_items.append({
-            "excluded": test["id"] in selection.get("excluded", []), "machine_only": test["id"] not in base_ids,
+            "excluded": test["id"] in selection.get("excluded", []) or (machine['name'] in ('GTR1','GTR2') and 'PBS DailyQA' in queue['name'] and (test['name'].startswith('[OBs]') or "OB's DR image" in test['name'])), "machine_only": test["id"] not in base_ids,
             "test_id": test["id"], "name": test["name"], "category": test["category"], "type": test["type"],
             "unit": test["unit"], "description": test["description"],
             "limits": qa.resolve_limits(test, item, override),

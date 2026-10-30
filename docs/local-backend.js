@@ -909,7 +909,7 @@
     const allItems = [...queue.items, ...extra].map((item) => {
       const test = byId("tests", item.test_id);
       const o = overrides[test.id];
-      return { excluded: (selection.excluded || []).includes(test.id), machine_only: !base.has(test.id), test_id: test.id, name: test.name, category: test.category, type: test.type, unit: test.unit, description: test.description,
+      return { excluded: (selection.excluded || []).includes(test.id)||(['GTR1','GTR2'].includes(machine.name)&&isPbsTemplate(queue.name)&&(test.name.startsWith('[OBs]')||test.name.includes("OB's DR image"))), machine_only: !base.has(test.id), test_id: test.id, name: test.name, category: test.category, type: test.type, unit: test.unit, description: test.description,
         limits: resolveLimits(test, item, o), queue_limits: resolveLimits(test, item),
         override: o ? { expected: o.expected, warn: o.warn, fail: o.fail, tol_mode: o.tol_mode } : null,
         last_text: test.type === "text" ? (S.results.filter((r) => r.test_id === test.id && r.value_text).map((r) => ({ r, run: byId("runs", r.run_id) }))
@@ -1279,8 +1279,31 @@
     installRequestedDashboardSchedules();
     installDerivedCalculations();
     unifyPbsSelections();
+    installPbsDailyProtocol();
     for (const run of S.runs) if (run.review_status === 'pending' && S.results.some(res => res.run_id === run.id && /therapist/i.test((byId('tests',res.test_id)||{}).name||'') && /review|approv/i.test((byId('tests',res.test_id)||{}).name||''))) run.therapist_approval_required = true;
   })();
+
+  function installPbsDailyProtocol(){
+    const revision=window.PORTAL_SEED.pbs_daily_protocol_revision;if(!revision)return;
+    const template=window.PORTAL_SEED.templates.find(t=>t.name===revision.template);
+    for(const q of S.queues.filter(q=>q.name===revision.template)){
+      if(S.audit.some(a=>a.action===revision.id&&a.entity_id===q.id))continue;
+      const prior=S.queue_items.filter(i=>i.queue_id===q.id).sort((a,b)=>a.position-b.position),used=new Set(),ordered=[];
+      for(const check of template.checks){
+        let item=prior.find(i=>[check.name,check._previous_name].includes(byId('tests',i.test_id)?.name));
+        if(item){const test=byId('tests',item.test_id);used.add(item.test_id);test.name=check.name;test.description=check.description;}
+        else{const tid=insert('tests',{...check,active:1,owner_queue_id:q.id,unit:check.unit||'',expected:check.expected??null,warn:check.warn??null,fail:check.fail??null,tol_mode:check.tol_mode||'absolute'});item={queue_id:q.id,test_id:tid,position:0};S.queue_items.push(item);}
+        ordered.push(item);
+      }
+      for(const item of prior){const test=byId('tests',item.test_id);if(revision.removed.includes(test.name))S.queue_items=S.queue_items.filter(i=>i!==item);else if(!used.has(item.test_id))ordered.push(item);}
+      ordered.forEach((i,position)=>i.position=position);
+      for(const a of S.assignments.filter(a=>a.queue_id===q.id&&revision.obs_machines_excluded.includes(byId('machines',a.machine_id)?.name))){
+        const selection=testSelection(a),obs=prior.filter(i=>{const t=byId('tests',i.test_id);return t.name.startsWith('[OBs]')||t.name.includes("OB's DR image");}).map(i=>i.test_id);
+        a.test_selection={...selection,excluded:[...new Set([...(selection.excluded||[]),...obs])]};
+      }
+      audit(null,revision.id,'queue',q.id,{preserve_historical_results:true});save();
+    }
+  }
 
   function unifyPbsSelections(){
     for(const q of S.queues.filter(q=>isPbsTemplate(q.name))){

@@ -1710,3 +1710,20 @@ td, .measure-table td { font-size: 21px; }
 .import-mapping-row input, .import-mapping-row select { min-width:0; width:100%; }
 .import-block-summary { padding:8px 0; border-bottom:1px solid var(--border); margin-bottom:8px; }
 @media(max-width:767px) { .import-mapping-row { grid-template-columns:1fr; padding:10px 0; border-bottom:1px solid var(--border); } }
+
+/* Compact phone entry: only the test, measured value and verdict. */
+@media(max-width:767px) {
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table > tbody > tr:not(.quick-trend) { padding:6px 7px; margin:0; gap:2px 8px; border-radius:0; border-width:0 0 1px; align-items:center; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table td { padding:0; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table .qa-label > :not(.qa-test-title),
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table .qa-test-title > :not(.qa-test-name),
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table td:not(.qa-label):not(.qa-measured):not(.qa-result),
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table .quick-trend { display:none !important; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .qa-test-name { font-size:15px; line-height:1.25; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table input:not([type="hidden"]),
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table select { min-height:44px; padding:5px 7px; font-size:16px; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table .segmented button { min-height:44px; padding:6px 9px; font-size:16px; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-table .chip { font-size:13px; padding:2px 6px; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-block { padding:0; }
+  #app:is([data-page^="perform/"],[data-page^="runs/"]) .measure-block > h3 { padding:6px 7px; margin:0; font-size:15px; }
+}

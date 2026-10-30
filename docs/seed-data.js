@@ -1820,6 +1820,12 @@ window.PORTAL_SEED = {
      "description": "Template 1.09. [Section: Setup and Safety]"
     },
     {
+     "name": "Place the H-index 3 bar at step 3.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 1.09b. [Section: Setup and Safety]"
+    },
+    {
      "category": "Safety",
      "name": "Please setup the Sphinx (index: H3) and move the couch BARS to the patient's right side to prevent potential collision during CBCT.",
      "type": "boolean",
@@ -1841,11 +1847,36 @@ window.PORTAL_SEED = {
      "description": "Template 1.12. [Section: Setup and Safety]"
     },
     {
+     "name": "Send the daily QA chart for this gantry from MOSAIQ to TCS and accept it at TCS.",
      "category": "Mechanical and Safety",
-     "name": "Is a room laser's offset less than ± 2 mm?",
+     "type": "boolean",
+     "description": "Template 1.13. [Section: Setup and Safety]"
+    },
+    {
+     "name": "Use the hand pendant → Set-up to align PPS, gantry and snout automatically at the isocenter, one at a time.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.00. [Section: Mechanical and Imaging]"
+    },
+    {
+     "category": "Mechanical and Safety",
+     "name": "Visually check that the room lasers align with the BB; offset must be less than 2 mm.",
      "type": "boolean",
      "unit": "Yes/No",
-     "description": "Template 2.01. [Section: Mechanical and Imaging]"
+     "description": "Template 2.01. [Section: Mechanical and Imaging]",
+     "_previous_name": "Is a room laser's offset less than ± 2 mm?"
+    },
+    {
+     "name": "Insert panels A and B.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.02a. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Capture kV/kV images and align finely to the center of the BB image. Record the offset below, then move the couch to correct it.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.02b. [Section: Mechanical and Imaging]"
     },
     {
      "category": "Mechanical and Safety",
@@ -1854,7 +1885,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": 0,
      "tol_mode": "absolute",
-     "description": "Template 2.02. [Section: Mechanical and Imaging]",
+     "description": "Template 2.02c. [Section: Mechanical and Imaging]",
      "warn": 0.15,
      "fail": 0.2
     },
@@ -1865,7 +1896,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": 0,
      "tol_mode": "absolute",
-     "description": "Template 2.03. [Section: Mechanical and Imaging]",
+     "description": "Template 2.02d. [Section: Mechanical and Imaging]",
      "warn": 0.15,
      "fail": 0.2
     },
@@ -1876,7 +1907,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": 0,
      "tol_mode": "absolute",
-     "description": "Template 2.04. [Section: Mechanical and Imaging]",
+     "description": "Template 2.02e. [Section: Mechanical and Imaging]",
      "warn": 0.15,
      "fail": 0.2
     },
@@ -1887,14 +1918,33 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": 0,
      "tol_mode": "absolute",
-     "description": "Template 2.05. [Section: Mechanical and Imaging] [calc: 3d-offset] [derived: %7B%22inputs%22%3A%20%5B%7B%22name%22%3A%20%22%5BOrtho%20-%20kV%2FkV%5D%20PPS%202%20XRAY%20Offset%20X%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22Mechanical%20and%20Safety%22%7D%2C%20%7B%22name%22%3A%20%22%5BOrtho%20-%20kV%2FkV%5D%20PPS%202%20XRAY%20Offset%20Y%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22Mechanical%20and%20Safety%22%7D%2C%20%7B%22name%22%3A%20%22%5BOrtho%20-%20kV%2FkV%5D%20PPS%202%20XRAY%20Offset%20Z%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22Mechanical%20and%20Safety%22%7D%5D%2C%20%22formula%22%3A%20%22sqrt%28A%2AA%2BB%2AB%2BC%2AC%29%22%7D]"
+     "description": "Template 2.02f. [Section: Mechanical and Imaging] [calc: 3d-offset] [derived: %7B%22inputs%22%3A%20%5B%7B%22name%22%3A%20%22%5BOrtho%20-%20kV%2FkV%5D%20PPS%202%20XRAY%20Offset%20X%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22Mechanical%20and%20Safety%22%7D%2C%20%7B%22name%22%3A%20%22%5BOrtho%20-%20kV%2FkV%5D%20PPS%202%20XRAY%20Offset%20Y%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22Mechanical%20and%20Safety%22%7D%2C%20%7B%22name%22%3A%20%22%5BOrtho%20-%20kV%2FkV%5D%20PPS%202%20XRAY%20Offset%20Z%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22Mechanical%20and%20Safety%22%7D%5D%2C%20%22formula%22%3A%20%22sqrt%28A%2AA%2BB%2AB%2BC%2AC%29%22%7D]"
     },
     {
      "category": "Mechanical and Safety",
-     "name": "Please move PPS in X (-4.0 cm), Y (+1.0 cm), Z (+1.0 cm) using the correction vector to run CBCT.",
+     "name": "At TCS, move the couch to X = −5 cm, Y = −1 cm, Z = +4.5 cm.",
      "type": "boolean",
      "unit": "Yes/No",
+     "description": "Template 2.03. [Section: Mechanical and Imaging]",
+     "_previous_name": "Please move PPS in X (-4.0 cm), Y (+1.0 cm), Z (+1.0 cm) using the correction vector to run CBCT."
+    },
+    {
+     "name": "Retract panel A before CBCT.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.05. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Acquire the CBCT image using a half scan in the clockwise direction.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
      "description": "Template 2.06. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Use Auto to obtain the correction vector. Manually realign if the offset differs substantially from the reference.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.07. [Section: Mechanical and Imaging]"
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1903,7 +1953,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": null,
      "tol_mode": "absolute",
-     "description": "Template 2.07. [Section: Mechanical and Imaging]"
+     "description": "Template 2.08a. [Section: Mechanical and Imaging] Record the correction vector only. Do not move the couch."
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1912,7 +1962,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": null,
      "tol_mode": "absolute",
-     "description": "Template 2.08. [Section: Mechanical and Imaging]"
+     "description": "Template 2.08b. [Section: Mechanical and Imaging] Record the correction vector only. Do not move the couch."
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1921,7 +1971,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": null,
      "tol_mode": "absolute",
-     "description": "Template 2.09. [Section: Mechanical and Imaging]"
+     "description": "Template 2.08c. [Section: Mechanical and Imaging] Record the correction vector only. Do not move the couch."
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1930,21 +1980,70 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": 0,
      "tol_mode": "absolute",
-     "description": "Template 2.10. [Section: Mechanical and Imaging] [calc: 3d-offset] [derived: %7B%22inputs%22%3A%20%5B%7B%22name%22%3A%20%22%5BCBCT%20-%20Pelvis%20SFOV%20ND%5D%20Required%20Correction%20Vector%20-%20X%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BCBCT%20-%20Pelvis%20SFOV%20ND%5D%20Required%20Correction%20Vector%20-%20Y%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BCBCT%20-%20Pelvis%20SFOV%20ND%5D%20Required%20Correction%20Vector%20-%20Z%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%5D%2C%20%22formula%22%3A%20%22sqrt%28A%2AA%2BB%2AB%2BC%2AC%29%22%7D]"
+     "description": "Template 2.08d. [Section: Mechanical and Imaging] [calc: 3d-offset] [derived: %7B%22inputs%22%3A%20%5B%7B%22name%22%3A%20%22%5BCBCT%20-%20Pelvis%20SFOV%20ND%5D%20Required%20Correction%20Vector%20-%20X%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BCBCT%20-%20Pelvis%20SFOV%20ND%5D%20Required%20Correction%20Vector%20-%20Y%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BCBCT%20-%20Pelvis%20SFOV%20ND%5D%20Required%20Correction%20Vector%20-%20Z%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%5D%2C%20%22formula%22%3A%20%22sqrt%28A%2AA%2BB%2AB%2BC%2AC%29%22%7D] Record the correction vector only. Do not move the couch."
     },
     {
+     "name": "In MOSAIQ, select the Daily QA field; the planned gantry angle should be 90°.",
      "category": "Mechanical and Safety",
-     "name": "Please set all angles (Rotation, Pitch, Roll) in the correction vector to 0 degrees, and apply the 3D correction vector (x, y, z) based on the CBCT to return to the isocenter position.",
      "type": "boolean",
-     "unit": "Yes/No",
-     "description": "Template 2.11. [Section: Mechanical and Imaging]"
+     "description": "Template 2.10. [Section: Mechanical and Imaging]"
     },
     {
-     "category": "A tip for the next procedure",
-     "name": "Please retract the CBCT imaging panel.",
+     "name": "On the virtual hand pendant, choose Treatment → Gantry and move to 90°, or use Go to.",
+     "category": "Mechanical and Safety",
      "type": "boolean",
-     "unit": "Yes/No",
-     "description": "Template 2.12. [Section: Mechanical and Imaging]"
+     "description": "Template 2.20. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Insert panel A for kV/kV imaging.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.30. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Acquire kV/kV images and use Auto 3 to align, or manually align to the isocenter.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.50. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "[kV/kV - Gantry 90°] Correction vector X [cm]",
+     "category": "AI_PBS_Daily_Imaging",
+     "type": "numeric",
+     "unit": "cm",
+     "description": "Template 2.60x. [Section: Mechanical and Imaging] Record the correction vector from the isocenter before moving the couch."
+    },
+    {
+     "name": "[kV/kV - Gantry 90°] Correction vector Y [cm]",
+     "category": "AI_PBS_Daily_Imaging",
+     "type": "numeric",
+     "unit": "cm",
+     "description": "Template 2.60y. [Section: Mechanical and Imaging] Record the correction vector from the isocenter before moving the couch."
+    },
+    {
+     "name": "[kV/kV - Gantry 90°] Correction vector Z [cm]",
+     "category": "AI_PBS_Daily_Imaging",
+     "type": "numeric",
+     "unit": "cm",
+     "description": "Template 2.60z. [Section: Mechanical and Imaging] Record the correction vector from the isocenter before moving the couch."
+    },
+    {
+     "name": "Apply the recorded correction vector and move the couch.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.70. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Acquire another kV/kV image to verify BB alignment at the isocenter. Manually realign if needed.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.80. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Retract panels A and B.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 2.90. [Section: Mechanical and Imaging]"
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1953,7 +2052,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": null,
      "tol_mode": "absolute",
-     "description": "Template 2.13. [Section: Mechanical and Imaging]"
+     "description": "Template 2.91. [Section: Mechanical and Imaging]"
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1962,7 +2061,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": null,
      "tol_mode": "absolute",
-     "description": "Template 2.14. [Section: Mechanical and Imaging]"
+     "description": "Template 2.92. [Section: Mechanical and Imaging]"
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1971,7 +2070,7 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": null,
      "tol_mode": "absolute",
-     "description": "Template 2.15. [Section: Mechanical and Imaging]"
+     "description": "Template 2.93. [Section: Mechanical and Imaging]"
     },
     {
      "category": "AI_PBS_Daily_Imaging",
@@ -1980,21 +2079,27 @@ window.PORTAL_SEED = {
      "unit": "cm",
      "expected": 0,
      "tol_mode": "absolute",
-     "description": "Template 2.16. [Section: Mechanical and Imaging] [calc: 3d-offset] [derived: %7B%22inputs%22%3A%20%5B%7B%22name%22%3A%20%22%5BOBs%5D%20Required%20Correction%20Vector%20-%20X%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BOBs%5D%20Required%20Correction%20Vector%20-%20Y%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BOBs%5D%20Required%20Correction%20Vector%20-%20Z%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%5D%2C%20%22formula%22%3A%20%22sqrt%28A%2AA%2BB%2AB%2BC%2AC%29%22%7D]"
+     "description": "Template 2.94. [Section: Mechanical and Imaging] [calc: 3d-offset] [derived: %7B%22inputs%22%3A%20%5B%7B%22name%22%3A%20%22%5BOBs%5D%20Required%20Correction%20Vector%20-%20X%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BOBs%5D%20Required%20Correction%20Vector%20-%20Y%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%2C%20%7B%22name%22%3A%20%22%5BOBs%5D%20Required%20Correction%20Vector%20-%20Z%20%5Bcm%5D%22%2C%20%22category%22%3A%20%22AI_PBS_Daily_Imaging%22%7D%5D%2C%20%22formula%22%3A%20%22sqrt%28A%2AA%2BB%2AB%2BC%2AC%29%22%7D]"
     },
     {
      "category": "Mechanical and Safety",
      "name": "Please review the isocenter position by selecting OB's DR image and apply a correction vector if necessary (if any axis exceeds 0.05 cm: x, y, or z).",
      "type": "boolean",
      "unit": "Yes/No",
-     "description": "Template 2.17. [Section: Mechanical and Imaging]"
+     "description": "Template 2.95. [Section: Mechanical and Imaging]"
     },
     {
      "category": "A tip for the next procedure",
      "name": "Go to MyQA, open your machine QA, connect Sphinx, and measure the background.",
      "type": "boolean",
      "unit": "Yes/No",
-     "description": "Template 2.18. [Section: Mechanical and Imaging]"
+     "description": "Template 2.99. [Section: Mechanical and Imaging]"
+    },
+    {
+     "name": "Deliver the beam.",
+     "category": "Mechanical and Safety",
+     "type": "boolean",
+     "description": "Template 3.00. [Section: Sphinx Measurements]"
     },
     {
      "category": "Beam_Parameters",
@@ -2714,13 +2819,6 @@ window.PORTAL_SEED = {
      "type": "boolean",
      "unit": "Yes/No",
      "description": "Template 4.02. [Section: Final safety checks]"
-    },
-    {
-     "category": "Safety",
-     "name": "Did you hear beeping sound from the neutron detector?",
-     "type": "boolean",
-     "unit": "Yes/No",
-     "description": "Template 4.03. [Section: Final safety checks]"
     },
     {
      "category": "Safety",
@@ -7730,5 +7828,18 @@ window.PORTAL_SEED = {
   "Mechanical – ODI at isocenter (SRS)",
   "Dosimetry – Dose Pro measurement",
   "Physics review – SRS QA reviewed before treatment"
- ]
+ ],
+ "pbs_daily_protocol_revision": {
+  "id": "pbs_daily_20261030",
+  "template": "PBS DailyQA Template - Sphinx",
+  "removed": [
+   "Please set all angles (Rotation, Pitch, Roll) in the correction vector to 0 degrees, and apply the 3D correction vector (x, y, z) based on the CBCT to return to the isocenter position.",
+   "Please retract the CBCT imaging panel.",
+   "Did you hear beeping sound from the neutron detector?"
+  ],
+  "obs_machines_excluded": [
+   "GTR1",
+   "GTR2"
+  ]
+ }
 };
